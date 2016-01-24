@@ -1,0 +1,25 @@
+html,
+body {
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+div#outer {
+  width: 800px;
+  margin: 0px auto;
+  padding: 0px 50px;
+}
+
+div#container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+div.left {
+  width: 50%;
+  float: left;
+}
+
+div.right {
+  width: 50%;
+  float: left;
+}
