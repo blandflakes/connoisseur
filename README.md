@@ -8,3 +8,12 @@
 ## Possible future improvements
 
 1. Derive stats about average sentence length, use in generation
+2. Multiple personas
+3. With #2, parameters for weighting them
+
+## TODO
+
+* camelcase all over
+* disable text display if there's no state
+* need to pass trained stuff to text display for the header
+* need to have a "current quote" in the state, also passed to text display (maybe text display has the generator as its state passed from the interface)
