@@ -12,6 +12,7 @@
 3. With #2, parameters for weighting them
 4. order configurable
 5. speed up, separate out crappy markov chain
+6. make persona optional
 
 ## TODO
 
