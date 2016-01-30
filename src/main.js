@@ -105,7 +105,7 @@ var TrainingParameters = React.createClass({
       return toggleableCorpusNode(persona, selected, this.selectPersona);
     }.bind(this));
     var subjectNodes = this.props.subjects.map(function(subject) {
-      var selected = this.state.sselectedSubject && this.state.selectedSubject.name === subject.name;
+      var selected = this.state.selectedSubject && this.state.selectedSubject.name === subject.name;
       return toggleableCorpusNode(subject, selected, this.selectSubject);
     }.bind(this));
 
@@ -120,7 +120,7 @@ var TrainingParameters = React.createClass({
           <h5>Subjects</h5>
           {subjectNodes}
         </div>
-        <button>
+        <button
           className="button"
           type="button"
           disabled={!this.someSelected() || this.sameParameters()}
@@ -171,6 +171,7 @@ var Interface = React.createClass({
   },
   train: function(corpora) {
     Promise.all([getCorpusText(corpora.persona), getCorpusText(corpora.subject)]).then(function(corporaText) {
+      window.console.log(corporaText);
       var generator = trainGenerator(corporaText);
       var notes = generator.generate();
       this.setState({ persona: corpora.persona, subject: corpora.subject,

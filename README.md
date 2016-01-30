@@ -19,3 +19,4 @@
 * need to have a "current quote" in the state, also passed to text display (maybe text display has the generator as its state passed from the interface)
 * sentence length is hardcoded and random (sucks)
 * sentence ends are naively detected via punctuation at the end of the word, would fail on things like M.D.
+* disallow uploading multiple corpora of the same name

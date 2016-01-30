@@ -1,13 +1,12 @@
 const EndOfSentenceRegexp = /[?!.]/;
 
 export function trainGenerator(corporaTexts) {
-  var order = 2;
-  var allWords = corpora.reduce(function(acc, text) {
-    acc + text
-  }, "").split(/\s/);
+  var allWords = corporaTexts.reduce(function(acc, text) {
+    return acc + text;
+  }, "");
 
-  window.console.log("Beginning training.");
   // Map of order-grams to next words (String -> Array)
+  var order = 2;
   var graph = {};
   var orderGram;
   for (var start = 0; start + order < allWords.length; ++start) {
@@ -30,7 +29,7 @@ export function trainGenerator(corporaTexts) {
       // Prime array.
       var words = sampleArray(startingGrams).split(/\s/);
       do {
-        if (EndOfSentenceRegexp.test(words[words.length - 1]) {
+        if (EndOfSentenceRegexp.test(words[words.length - 1])) {
           ++numSentences;
         }
         if (numSentences < targetNumSentences) {
