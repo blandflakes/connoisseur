@@ -10,7 +10,8 @@
 1. Derive stats about average sentence length, use in generation
 2. Multiple personas
 3. With #2, parameters for weighting them
-* order configurable
+4. order configurable
+5. speed up, separate out crappy markov chain
 
 ## TODO
 
