@@ -1,5 +1,5 @@
-import $ from 'jquery';
-import { default_personas, default_subjects } from 'src/corpora';
+import { defaultPersonas, defaultSubjects, getCorpusText } from 'src/corpora';
+import { trainGenerator } from 'src/generator';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -21,7 +21,7 @@ var CorpusUploader = React.createClass({
     var text = this.state.text.trim();
     var type = this.state.type;
     this.props.newCorpus({ name: name, text: text, type: type });
-    this.setState({ name: "", text: "", type: "persona" });
+    this.setState(this.getInitialState());
   },
   render: function() {
     return (
@@ -29,7 +29,7 @@ var CorpusUploader = React.createClass({
         <h4>Add a new corpus</h4>
         <input
           className="corpusName"
-          placeholder="Corpus name"
+          placeholder="corpus name"
           value={this.state.name}
           onChange={this.updateCorpusName}
         />
@@ -61,38 +61,33 @@ var CorpusUploader = React.createClass({
   }
 });
 
-
 var TrainingParameters = React.createClass({
   getInitialState: function() {
     return {
-      trained_persona: null,
-      trained_subject: null,
-      selected_persona: null,
-      selected_subject: null,
+      selectedPersona: null,
+      selectedSubject: null
     };
   },
   someSelected: function() {
-    return this.state.selected_persona && this.state.selected_subject;
+    return this.state.selectedPersona && this.state.selectedSubject;
   },
   sameParameters: function() {
-    if (this.state.trained_persona && this.state.trained_subject && this.state.selected_persona &&
-        this.state.selected_subject) {
-      return this.state.trained_persona.name === this.state.selected_persona.name &&
-        this.state.trained_subject.name == this.state.selected_subject.name;
+    if (this.props.persona && this.props.subject && this.state.selectedPersona
+                                           && this.state.selectedSubject) {
+      return this.props.persona.name === this.state.selectedPersona.name &&
+        this.props.subject.name === this.state.selectedSubject.name;
     }
     return false;
   },
   selectPersona: function(corpus) {
-    this.setState({ selected_persona: corpus });
+    this.setState({ selectedPersona: corpus });
   },
   selectSubject: function(corpus) {
-    this.setState({ selected_subject: corpus });
+    this.setState({ selectedSubject: corpus });
   },
   train: function(e) {
-    this.props.train({ persona: this.state.selected_persona,
-                       subject: this.state.selected_subject });
-    this.setState({ trained_persona: this.state.selected_persona,
-                    trained_subject: this.state.selected_subject });
+    this.props.train({ persona: this.state.selectedPersona,
+                       subject: this.state.selectedSubject });
   },
   render: function() {
     var toggleableCorpusNode = function(corpus, isSelected, callback) {
@@ -105,12 +100,12 @@ var TrainingParameters = React.createClass({
       );
     }.bind(this);
 
-    var personaNodes = this.props.corpora.personas.map(function(persona) {
-      var selected = this.state.selected_persona && this.state.selected_persona.name === persona.name;
+    var personaNodes = this.props.personas.map(function(persona) {
+      var selected = this.state.selectedPersona && this.state.selectedPersona.name === persona.name;
       return toggleableCorpusNode(persona, selected, this.selectPersona);
     }.bind(this));
-    var subjectNodes = this.props.corpora.subjects.map(function(subject) {
-      var selected = this.state.selected_subject && this.state.selected_subject.name === subject.name;
+    var subjectNodes = this.props.subjects.map(function(subject) {
+      var selected = this.state.sselectedSubject && this.state.selectedSubject.name === subject.name;
       return toggleableCorpusNode(subject, selected, this.selectSubject);
     }.bind(this));
 
@@ -125,7 +120,7 @@ var TrainingParameters = React.createClass({
           <h5>Subjects</h5>
           {subjectNodes}
         </div>
-        <button
+        <button>
           className="button"
           type="button"
           disabled={!this.someSelected() || this.sameParameters()}
@@ -139,11 +134,12 @@ var TrainingParameters = React.createClass({
 
 var TextDisplay = React.createClass({
   render: function() {
+    var headerText = this.props.persona + "'s notes on " + this.props.subject;
     return (
       <div className="textDisplay bordered">
-        <h4>Brian's notes on being a badass</h4>
-        <blockquote>Toasted notes of awesomeness.</blockquote>
-        <button class="button" type="button">Generate!</button>
+        <h4>{headerText}</h4>
+        <blockquote>{this.props.notes}</blockquote>
+        <button class="button" type="button" onClick={this.props.generate}>Generate!</button>
       </div>
     );
   }
@@ -152,14 +148,18 @@ var TextDisplay = React.createClass({
 var Interface = React.createClass({
   getInitialState: function() {
     return {
-      personas: default_personas,
-      subjects: default_subjects
+      personas: defaultPersonas,
+      subjects: defaultSubjects,
+      persona: null,
+      subject: null,
+      notes: null,
+      generator: null
     };
   },
   newCorpus: function(corpus) {
     var newCorpus = {
       name: corpus.name,
-      text: corpus.name,
+      text: corpus.text,
       location: "local"
     };
     if (corpus.type === "persona") {
@@ -170,19 +170,29 @@ var Interface = React.createClass({
     }
   },
   train: function(corpora) {
-    // TODO actually implement
-    alert("Training called!");
-    window.console.log(JSON.stringify(corpora));
+    Promise.all([getCorpusText(corpora.persona), getCorpusText(corpora.subject)]).then(function(corporaText) {
+      var generator = trainGenerator(corporaText);
+      var notes = generator.generate();
+      this.setState({ persona: corpora.persona, subject: corpora.subject,
+                      generator: generator, notes: notes });
+    }.bind(this));
+  },
+  generate: function() {
+    var newNotes = this.state.generator.generate();
+    this.setState({ notes: newNotes });
   },
   render: function () {
     return (
       <div className="container">
         <h2>Connoisseur: Procedurally Generated Reviews</h2>
         <div className="bordered">
-          <TrainingParameters corpora={this.state} train={this.train} />
+          <TrainingParameters personas={this.state.personas} subjects={this.state.subjects} train={this.train}
+          persona={this.state.persona} subject={this.state.subject} />
           <CorpusUploader newCorpus={this.newCorpus} />
         </div>
-        <TextDisplay />
+        { this.state.generator &&
+          <TextDisplay persona={this.state.persona} subject={this.state.subject}
+            notes={this.state.notes} generate={this.generate} /> }
       </div>
     );
   }
