@@ -6,7 +6,7 @@ var wine = { name: "wine", uri: "/data_sets/wine.txt", location: "remote"};
 
 export const defaultSubjects = [beer, spirits, wine];
 
-var lovecraft = { name: "lovecraft", uri: "/data_sets/lovecraft.txt", location: "remote"}
+var lovecraft = { name: "lovecraft", uri: "/data_sets/uniform_lovecraft.txt", location: "remote"}
 
 export const defaultPersonas = [lovecraft];
 

@@ -134,7 +134,7 @@ var TrainingParameters = React.createClass({
 
 var TextDisplay = React.createClass({
   render: function() {
-    var headerText = this.props.persona + "'s notes on " + this.props.subject;
+    var headerText = this.props.persona.name + "'s notes on " + this.props.subject.name;
     return (
       <div className="textDisplay bordered">
         <h4>{headerText}</h4>
@@ -171,7 +171,6 @@ var Interface = React.createClass({
   },
   train: function(corpora) {
     Promise.all([getCorpusText(corpora.persona), getCorpusText(corpora.subject)]).then(function(corporaText) {
-      window.console.log(corporaText);
       var generator = trainGenerator(corporaText);
       var notes = generator.generate();
       this.setState({ persona: corpora.persona, subject: corpora.subject,

@@ -10,13 +10,10 @@
 1. Derive stats about average sentence length, use in generation
 2. Multiple personas
 3. With #2, parameters for weighting them
+* order configurable
 
 ## TODO
 
-* camelcase all over
-* disable text display if there's no state
-* need to pass trained stuff to text display for the header
-* need to have a "current quote" in the state, also passed to text display (maybe text display has the generator as its state passed from the interface)
 * sentence length is hardcoded and random (sucks)
-* sentence ends are naively detected via punctuation at the end of the word, would fail on things like M.D.
+* sentence ends are naively detected via punctuation at the end of the word, would fail on things like M.D. or Mr.
 * disallow uploading multiple corpora of the same name
