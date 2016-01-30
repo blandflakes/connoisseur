@@ -6877,14 +6877,14 @@ $__System.register("33", ["30", "32"], function (_export) {
 
       _export("getCorpusText", getCorpusText);
 
-      beer = { name: "beer", uri: "/data_sets/beer.txt", location: "remote" };
-      spirits = { name: "spirits", uri: "/data_sets/spirits.txt", location: "remote" };
-      wine = { name: "wine", uri: "/data_sets/wine.txt", location: "remote" };
+      beer = { name: "beer", uri: "data_sets/beer.txt", location: "remote" };
+      spirits = { name: "spirits", uri: "data_sets/spirits.txt", location: "remote" };
+      wine = { name: "wine", uri: "data_sets/wine.txt", location: "remote" };
       defaultSubjects = [beer, spirits, wine];
 
       _export("defaultSubjects", defaultSubjects);
 
-      lovecraft = { name: "lovecraft", uri: "/data_sets/uniform_lovecraft.txt", location: "remote" };
+      lovecraft = { name: "lovecraft", uri: "data_sets/uniform_lovecraft.txt", location: "remote" };
       defaultPersonas = [lovecraft];
 
       _export("defaultPersonas", defaultPersonas);
