@@ -2,7 +2,7 @@ const EndOfSentenceRegexp = /[?!.]/;
 
 export function trainGenerator(corporaTexts) {
   // Map of order-grams to next words (String -> Array)
-  var order = 2;
+  var order = 3;
   var graph = {};
   var sentenceBeginnings = [];
 

@@ -1,6 +1,5 @@
 html,
-body {
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+body { font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 div#outer {
@@ -33,7 +32,6 @@ div.right {
 
 div.textDisplay {
   clear: left;
-  margin: 0 auto;
 }
 
 button.toggleable {
