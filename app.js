@@ -19534,7 +19534,17 @@ $__System.register('1', ['30', '33', '46', '6d', 'e8'], function (_export) {
               React.createElement(CorpusUploader, { newCorpus: this.newCorpus })
             ),
             this.state.generator && React.createElement(TextDisplay, { persona: this.state.persona, subject: this.state.subject,
-              notes: this.state.notes, generate: this.generate })
+              notes: this.state.notes, generate: this.generate }),
+            React.createElement(
+              'h5',
+              null,
+              'A project by ',
+              React.createElement(
+                'a',
+                { href: 'http://blandflakes.github.io/' },
+                'blandflakes'
+              )
+            )
           );
         }
       });
