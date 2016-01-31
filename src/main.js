@@ -193,7 +193,6 @@ var Interface = React.createClass({
         { this.state.generator &&
           <TextDisplay persona={this.state.persona} subject={this.state.subject}
             notes={this.state.notes} generate={this.generate} /> }
-        <h5>A project by <a href="http://blandflakes.github.io/">blandflakes</a></h5>
       </div>
     );
   }
