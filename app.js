@@ -6843,7 +6843,7 @@ define("32", ["31"], function(main) {
 _removeDefine();
 })();
 $__System.register("33", ["30", "32"], function (_export) {
-  var _Promise, $, beer, spirits, wine, defaultSubjects, lovecraft, defaultPersonas;
+  var _Promise, $, beer, spirits, wine, defaultSubjects, lovecraft, homer, defaultPersonas;
 
   function getCorpusText(corpus) {
     if (corpus.location == "remote") {
@@ -6884,8 +6884,9 @@ $__System.register("33", ["30", "32"], function (_export) {
 
       _export("defaultSubjects", defaultSubjects);
 
-      lovecraft = { name: "lovecraft", uri: "data_sets/uniform_lovecraft.txt", location: "remote" };
-      defaultPersonas = [lovecraft];
+      lovecraft = { name: "lovecraft", uri: "data_sets/lovecraft.txt", location: "remote" };
+      homer = { name: "homer", uri: "data_sets/odyssey.txt", location: "remote" };
+      defaultPersonas = [lovecraft, homer];
 
       _export("defaultPersonas", defaultPersonas);
     }
