@@ -6,9 +6,10 @@ var wine = { name: "wine", uri: "data_sets/wine.txt", location: "remote"};
 
 export const defaultSubjects = [beer, spirits, wine];
 
-var lovecraft = { name: "lovecraft", uri: "data_sets/uniform_lovecraft.txt", location: "remote"}
+var lovecraft = { name: "lovecraft", uri: "data_sets/lovecraft.txt", location: "remote"}
+var homer = { name: "homer", uri: "data_sets/odyssey.txt", location: "remote"}
 
-export const defaultPersonas = [lovecraft];
+export const defaultPersonas = [lovecraft, homer];
 
 export function getCorpusText(corpus) {
   if (corpus.location == "remote") {
