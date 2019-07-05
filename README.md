@@ -1,4 +1,10 @@
-# TODO
+# Connoisseur
+
+This was a simple project to learn React.js, a library for building functional web applications. The goal of Connoisseur is to generate either hilarious or believable notes about a food or beverage, using text from a particular author to flavor the verbage. I used a poor man's Markov Chain to do the generation. Some notes end up hilarious, while others are just gibberish. There is also support for adding your own persona or tasting subject!
+
+A demo is available [here](http://blandflakes.github.io/connoisseur/).
+
+This repository is not very polished, not up to date, and not actively developed.
 
 ## Directory Layout
 `src` contains source javascript files.
